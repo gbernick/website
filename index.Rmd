@@ -1,0 +1,24 @@
+---
+title: "SQL"
+output: html_document
+---
+
+#This is a level one header.
+##This is a level two header.
+###This is a level three header.  
+
+As I have heard you need have no need for notation for paragraphs.
+
+* Item 1
+* Item 2
+* Item 3
+
+Column 1 | Column 2 
+----- | -----
+California | West
+New York | East
+Washington | PNW
+
+![](donut.jpg)
+
+<img src = 'donut.jpg' width = '300'/>
