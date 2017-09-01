@@ -3,22 +3,19 @@ title: "SQL"
 output: html_document
 ---
 
-#This is a level one header.
-##This is a level two header.
-###This is a level three header.  
+## Filtering Rows and Columns
 
-As I have heard you need have no need for notation for paragraphs.
+In the installed packadge SQL we are able to filter columns by using SELECT and rows by using WHERE. For refrence we will use and example from the Lahman Baseball database. 
+* 1) Load the Lahman Packadge and also the sqldf packadge
 
-* Item 1
-* Item 2
-* Item 3
+```{r message=FALSE, warning=FALSE}
+library(Lahman)
+library(sqldf)
 
-Column 1 | Column 2 
------ | -----
-California | West
-New York | East
-Washington | PNW
+```
+```{r}
+query<-"select playerID,teamID,yearID,HR from Batting
+Where teamID='NYA' and yearID=1927"
+sqldf(query)
+```
 
-![](donut.jpg)
-
-<img src = 'donut.jpg' width = '300'/>
