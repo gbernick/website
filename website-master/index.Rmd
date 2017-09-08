@@ -1,0 +1,57 @@
+---
+title: "SQL"
+output: html_document
+---
+
+## Filtering Rows and Columns
+
+In the installed packadge SQL we are able to filter columns by using SELECT and rows by using WHERE. For refrence we will use and example from the Lahman Baseball database. 
+* 1) Load the Lahman Packadge and also the sqldf packadge
+
+```{r message=FALSE, warning=FALSE}
+library(Lahman)
+library(sqldf)
+
+```
+```{r}
+query<-"select playerID,teamID,yearID,HR from Batting
+where teamID='NYA' and yearID=1927"
+sqldf(query)
+```
+
+----------------------------------------
+
+##Locating and Specifying
+
+Similar to the execution above we further explored specifying and locating certain criteria by use of subject in question (i.e. playerID,HR,teamID etc.) by instead of just using '=' we pecified with '<','>','<=','>=', and so on. 
+
+
+Find more than 40 HR and less than 60 SO.
+
+```{r}
+query<-"select playerID, yearID, teamID, HR, SO from Batting where HR>40 and SO<60"
+sqldf(query)
+```
+------------------------------------------------
+
+Find more than 30 HR, in the 1970's, on the Phillies 'PHI'.
+
+```{r}
+query<-"select playerID, yearID, teamID, HR from Batting where HR>30 and yearID<=1979 and yearID>=1970 and teamID='PHI'"
+sqldf(query)
+```
+
+
+Find the players on the NYA that had greater than or equal to 40 HR
+
+```{r}
+query<-"select playerID, yearID, teamID, HR from Batting where teamID='NYA' and HR>=40"
+sqldf(query)
+```
+
+
+
+
+
+
+
