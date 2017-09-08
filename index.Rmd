@@ -19,3 +19,47 @@ Where teamID='NYA' and yearID=1927"
 sqldf(query)
 ```
 
+----------------------------------------
+
+##Locating and Specifying
+
+Similar to the execution above we further explored specifying and locating certain criteria by use of subject in question (i.e. playerID,HR,teamID etc.) by instead of just using '=' we pecified with '<','>','<=','>=', and so on. 
+
+
+Find more than 40 HR and less than 60 SO.
+
+```{r}
+query<-"select playerID, yearID, teamID, HR, SO from Batting where HR>40 and SO<60"
+sqldf(query)
+```
+
+
+Find more than 30 HR, in the 1970's, on the Phillies 'PHI'.
+
+```{r}
+query<-"select playerID, yearID, teamID, HR from Batting where HR>30 and yearID<=1979 and yearID>=1970 and teamID='PHI'"
+sqldf(query)
+```
+
+
+Find the players on the NYA that had greater than or equal to 40 HR
+
+```{r}
+query<-"select playerID, yearID, teamID, HR from Batting where teamID='NYA' and HR>=40"
+sqldf(query)
+```
+
+-----------------------------------
+
+## Order By
+
+With the use of SQL you can order rows. For this next example say I wanted display the players with more than 50 HR and from greatest to least. To do this specification I would add "order by" to my string and specify with "desc"
+
+```{r}
+query<-"select playerID, yearID, teamID, HR from Batting 
+where HR>50
+order by HR desc"
+
+sqldf(query)
+```
+
