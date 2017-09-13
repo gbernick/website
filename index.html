@@ -122,9 +122,15 @@ $(document).ready(function () {
 
 <div id="filtering-rows-and-columns" class="section level2">
 <h2>Filtering Rows and Columns</h2>
-<p>In the installed packadge SQL we are able to filter columns by using SELECT and rows by using WHERE. For refrence we will use and example from the Lahman Baseball database. * 1) Load the Lahman Packadge and also the sqldf packadge</p>
+<p>In the installed packadge SQL we are able to filter columns by using SELECT and rows by using WHERE. For refrence we will use and example from the Lahman Baseball database.</p>
+<ul>
+<li>Load the Lahman Packadge and also the sqldf packadge</li>
+</ul>
 <pre class="r"><code>library(Lahman)
 library(sqldf)</code></pre>
+<ul>
+<li>Example 1: Display table containing playerID, teamID, yearID, and HR for teamID=‘NYA’ and yearID=1927.</li>
+</ul>
 <pre class="r"><code>query&lt;-&quot;select playerID,teamID,yearID,HR from Batting
 Where teamID='NYA' and yearID=1927&quot;
 sqldf(query)</code></pre>
