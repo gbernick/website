@@ -26,7 +26,7 @@ sqldf(query)
 Similar to the execution above we further explored specifying and locating certain criteria by use of subject in question (i.e. playerID,HR,teamID etc.) by instead of just using '=' we pecified with '<','>','<=','>=', and so on. 
 
 
-Find more than 40 HR and less than 60 SO.
+* Example 1: Find more than 40 HR and less than 60 SO.
 
 ```{r}
 query<-"select playerID, yearID, teamID, HR, SO from Batting where HR>40 and SO<60"
@@ -34,7 +34,7 @@ sqldf(query)
 ```
 
 
-Find more than 30 HR, in the 1970's, on the Phillies 'PHI'.
+* Example 2: Find more than 30 HR, in the 1970's, on the Phillies 'PHI'.
 
 ```{r}
 query<-"select playerID, yearID, teamID, HR from Batting where HR>30 and yearID<=1979 and yearID>=1970 and teamID='PHI'"
@@ -42,7 +42,7 @@ sqldf(query)
 ```
 
 
-Find the players on the NYA that had greater than or equal to 40 HR
+* Example 3: Find the players on the NYA that had greater than or equal to 40 HR
 
 ```{r}
 query<-"select playerID, yearID, teamID, HR from Batting where teamID='NYA' and HR>=40"
@@ -53,12 +53,91 @@ sqldf(query)
 
 ## Order By
 
-With the use of SQL you can order rows. For this next example say I wanted display the players with more than 50 HR and from greatest to least. To do this specification I would add "order by" to my string and specify with "desc"
+With the use of SQL you can order rows. To do this specification I would add "order by" to my string and specify with "desc"
+
+* Example 1: Display the players with more than 50 HR and from greatest to least. 
 
 ```{r}
 query<-"select playerID, yearID, teamID, HR from Batting 
 where HR>50
 order by HR desc"
+
+sqldf(query)
+```
+
+* Example 2: Specify to display players with less than 10 strike-outs with 400 or more at-bat ordered by strikeouts.
+
+```{r}
+query<-"select playerID, yearID, teamID, SO, AB 
+from Batting where SO<10 and AB>=400 order by SO"
+sqldf(query)
+```
+
+----------------------------------------
+
+##Aggregation
+
+In order to aggregate data sets together one may use the commands sum, avg, min, max to bring together under one variable. 
+
+* Example 1: Display the sum of Babe Ruth's total HR, specify with 'sum(HR)' and grouped by playerID.
+```{r}
+query<-"select playerID, sum(HR) from Batting where playerID='ruthba01'
+group by playerID"
+sqldf(query)
+```
+
+* Example 2: Display players that have 600 or more HR for their career total, in descending order. 
+```{r}
+query<-"select playerID, sum(HR) from Batting 
+group by playerID 
+having sum(HR)>=600
+order by sum(HR) desc"
+sqldf(query)
+```
+
+* Example 3: Find if a players average HR is greater than 30.
+```{r}
+query<-"select playerID, avg(HR) from Batting 
+group by playerID 
+having avg(HR)>30
+order by avg(HR) desc"
+sqldf(query)
+```
+
+------------------------------------------------
+
+#Joins
+
+When one wants to join two tables together one must specify with the use of 'inner join' when specifying from. In addition one must specify which variables are shared between the two tables.
+
+* Example 1:
+```{r}
+query<-"select nameFirst, nameLast, teamID, yearID,HR 
+from Batting inner join Master
+on Batting.playerID=Master.playerID
+where Batting.playerID = 'ruthba01'"
+
+sqldf(query)
+```
+
+* Example 2
+```{r}
+query<-"select nameFirst, nameLast, teamID, yearID, HR 
+from Batting inner join Master
+on Batting.playerID=Master.playerID
+where HR>50
+order by HR desc"
+
+sqldf(query)
+```
+
+* Example 3
+```{r}
+query<-"select playerID, name, Batting.yearID, Batting.HR
+from Batting inner join Teams
+on Batting.teamID=Teams.teamID
+and Batting.yearID=Teams.yearID
+where playerID='ruthba01'"
 
 sqldf(query)
 ```
