@@ -424,7 +424,7 @@ sqldf(query)</code></pre>
 <h1>Joins</h1>
 <p>When one wants to join two tables together one must specify with the use of ‘inner join’ when specifying from. In addition one must specify which variables are shared between the two tables.</p>
 <ul>
-<li>Example 1:</li>
+<li>Example 1: Join Batting table with Master table to display nameFirst and nameLast instead of playerID as ‘ruthba01’.</li>
 </ul>
 <pre class="r"><code>query&lt;-&quot;select nameFirst, nameLast, teamID, yearID,HR 
 from Batting inner join Master
@@ -456,7 +456,7 @@ sqldf(query)</code></pre>
 ## 21      Babe     Ruth    NYA   1934 22
 ## 22      Babe     Ruth    BSN   1935  6</code></pre>
 <ul>
-<li>Example 2</li>
+<li>Example 2: Join Batting and Master to display names of players with HR greater than 50 in descending order.</li>
 </ul>
 <pre class="r"><code>query&lt;-&quot;select nameFirst, nameLast, teamID, yearID, HR 
 from Batting inner join Master
@@ -503,7 +503,7 @@ sqldf(query)</code></pre>
 ## 35     Cecil   Fielder    DET   1990 51
 ## 36    Andruw     Jones    ATL   2005 51</code></pre>
 <ul>
-<li>Example 3</li>
+<li>Example 3: Join Batting and Teams tables as to display the full name of team instead of teamID for the player ‘ruthba01’.</li>
 </ul>
 <pre class="r"><code>query&lt;-&quot;select playerID, name, Batting.yearID, Batting.HR
 from Batting inner join Teams

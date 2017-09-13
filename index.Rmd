@@ -110,7 +110,7 @@ sqldf(query)
 
 When one wants to join two tables together one must specify with the use of 'inner join' when specifying from. In addition one must specify which variables are shared between the two tables.
 
-* Example 1:
+* Example 1: Join Batting table with Master table to display nameFirst and nameLast instead of playerID as 'ruthba01'.
 ```{r}
 query<-"select nameFirst, nameLast, teamID, yearID,HR 
 from Batting inner join Master
@@ -120,7 +120,7 @@ where Batting.playerID = 'ruthba01'"
 sqldf(query)
 ```
 
-* Example 2
+* Example 2: Join Batting and Master to display names of players with HR greater than 50 in descending order.
 ```{r}
 query<-"select nameFirst, nameLast, teamID, yearID, HR 
 from Batting inner join Master
@@ -131,7 +131,7 @@ order by HR desc"
 sqldf(query)
 ```
 
-* Example 3
+* Example 3: Join Batting and Teams tables as to display the full name of team instead of teamID for the player 'ruthba01'.
 ```{r}
 query<-"select playerID, name, Batting.yearID, Batting.HR
 from Batting inner join Teams
