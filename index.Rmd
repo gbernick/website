@@ -146,3 +146,42 @@ where playerID='ruthba01'"
 sqldf(query)
 ```
 
+* Example 4: Joining of three tables together(Batting, Teams, Master) and identifying 'ruthba01'. When joining three tables use '()' when first join is written. 
+
+```{r}
+query<-"select nameFirst, nameLast, name, Batting.yearID, Batting.HR 
+from (Batting inner join Master 
+on Batting.playerID=Master.playerID) inner join Teams 
+on Batting.teamID=Teams.teamID and Batting.yearID=Teams.yearID
+where Batting.playerID='ruthba01'"
+
+sqldf(query)
+```
+
+
+* Example 5: Join Batting and Master to display players that have a career total of more than 600 HR.
+```{r}
+query<-"select nameFirst, nameLast, sum(HR)
+from Batting inner join Master 
+on Batting.playerID = Master.playerID
+group by Batting.playerID
+having sum(HR)>600
+order by sum(HR) DESC"
+
+sqldf(query)
+```
+
+
+* Example 6: Combine tables Salaries and Master to find the average salary greater than 1 million dollars of all players with the first name 'Bob'.
+```{r}
+query<-"select nameFirst, nameLast, avg(salary) 
+from Salaries inner join Master
+on Salaries.playerID=Master.playerID
+where nameFirst='Bob'
+group by Salaries.playerID
+having avg(salary)>1000000
+order by avg(salary) desc"
+
+sqldf(query)
+```
+
